@@ -112,7 +112,7 @@ export const tasks = [
     flagId: 2,
     assignedTo: 1,
     deadline: new Date("2026-04-10"),
-    attachmentsCount: 1
+    attachmentsCount: 0
   },
   {
     taskId: 9,

@@ -1,12 +1,15 @@
-import { tasks as initialTasks, taskStatus } from './data/tasks';
+import { taskStatus, tasks as initialTasks } from './data/tasks';
 import Column from './components/Column';
-import NewItemModal from './components/Modal';
+import SaveTaskModalDemo from './components/Modal';
 import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [taskList, setTaskList] = useState(() =>
+    initialTasks.map((task) => ({ ...task })),
+  );
+
   const [searchQuery, setSearchQuery] = useState('');
-  const [taskList, setTaskList] = useState(initialTasks);
   const [modalOpen, setModalOpen] = useState(false);
 
   function taskMatchesSearch(task, query) {
@@ -21,27 +24,23 @@ function App() {
 
   const filteredTasks = taskList.filter((t) => taskMatchesSearch(t, searchQuery));
 
-  const handleCreateItem = (values) => {
-    const nextId = Math.max(0, ...taskList.map((t) => t.taskId)) + 1;
-    const deadline =
-      values.endDate && typeof values.endDate.toDate === 'function'
-        ? values.endDate.toDate()
-        : new Date();
-    setTaskList((prev) => [
-      ...prev,
-      {
+  function addTaskFromModal(payload) {
+    setTaskList((prev) => {
+      const nextId = prev.reduce((max, t) => Math.max(max, t.taskId), 0) + 1;
+      const newTask = {
         taskId: nextId,
-        title: values.title,
-        description: values.description ?? '',
-        statusId: values.statusId,
+        title: payload.title.trim(),
+        description: (payload.description ?? '').trim(),
+        statusId: payload.statusId ?? 1,
         flagId: 1,
-        assignedTo: values.assignedTo ?? 1,
-        deadline,
+        assignedTo: payload.assignedTo ?? 1,
+        deadline: payload.deadline ? new Date(payload.deadline) : new Date(),
         attachmentsCount: 0,
-      },
-    ]);
-    setModalOpen(false);
-  };
+        tagLabel: payload.tagLabel ?? 'MindX School',
+      };
+      return [...prev, newTask];
+    });
+  }
 
   return (
     <div className="kanban">
@@ -79,10 +78,10 @@ function App() {
         </button>
       </header>
 
-      <NewItemModal
+      <SaveTaskModalDemo
         open={modalOpen}
-        onCancel={() => setModalOpen(false)}
-        onCreate={handleCreateItem}
+        onClose={() => setModalOpen(false)}
+        onSubmit={(payload) => addTaskFromModal(payload)}
       />
 
       <div className="kanban__board">

@@ -1,5 +1,4 @@
 import TaskCard from "./TaskCard";
-import { Tag } from 'antd';
 
 function Column({ title, tasks }) {
   const count = tasks.length;
@@ -9,9 +8,9 @@ function Column({ title, tasks }) {
       <header className="column__header">
         <div className="column__title-row">
           <h3 className="column__title">{title}</h3>
-          <Tag className="column__badge" aria-label={`${count} mục`}>
+          <span className="column__badge" aria-label={`${count} mục`}>
             {count}
-          </Tag>
+          </span>
         </div>
         <div className="column__actions">
           <button type="button" className="column__circle-btn" aria-label="Thêm thẻ">

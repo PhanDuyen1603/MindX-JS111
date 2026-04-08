@@ -1,5 +1,6 @@
 import { Button, Col, DatePicker, Form, Input, Modal, Row, Select } from 'antd';
 import { FlagFilled } from '@ant-design/icons';
+import dayjs from 'dayjs';
 import { taskStatus, users } from '../data/tasks';
 import './Modal.css';
 
@@ -14,17 +15,29 @@ const modalTitle = (
   </div>
 );
 
-export default function NewItemModal({ open, onCancel, onCreate }) {
+export default function SaveTaskModalDemo({ open, onClose, onSubmit }) {
   const [form] = Form.useForm();
 
   const handleFinish = (values) => {
-    onCreate?.(values);
+    const end = values.endDate;
+    const deadline =
+      end && typeof end.toDate === 'function' ? end.toDate() : end ? new Date(end) : null;
+
+    onSubmit?.({
+      title: values.title ?? '',
+      description: values.description ?? '',
+      statusId: values.statusId,
+      assignedTo: values.assignedTo,
+      deadline,
+      tagLabel: 'MindX School',
+    });
     form.resetFields();
+    onClose?.();
   };
 
   const handleCancel = () => {
     form.resetFields();
-    onCancel?.();
+    onClose?.();
   };
 
   const userOptions = users.map((u) => ({ value: u.userId, label: u.name }));
@@ -44,12 +57,13 @@ export default function NewItemModal({ open, onCancel, onCreate }) {
       <Form
         form={form}
         layout="vertical"
-        initialValues={{
-          assignedTo: users[0]?.userId,
-        }}
         colon={false}
         clearOnDestroy
         onFinish={handleFinish}
+        initialValues={{
+          endDate: dayjs('2024-06-15'),
+          assignedTo: users[0]?.userId,
+        }}
       >
         <Row gutter={16}>
           <Col xs={24} sm={12}>
@@ -87,12 +101,8 @@ export default function NewItemModal({ open, onCancel, onCreate }) {
 
         <Row gutter={16}>
           <Col xs={24} sm={12}>
-            <Form.Item
-              name="statusId"
-              label="Status"
-              rules={[{ required: true, message: 'Please choose status' }]}
-            >
-              <Select options={statusOptions} placeholder="Choose status" />
+            <Form.Item name="statusId" label="Status">
+              <Select options={statusOptions} placeholder="Choose status" allowClear />
             </Form.Item>
           </Col>
         </Row>
