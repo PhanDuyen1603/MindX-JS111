@@ -1,0 +1,114 @@
+.save-task-modal .ant-modal-content {
+  padding: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.save-task-modal .ant-modal-header {
+  margin: 0;
+  padding: 20px 48px 16px 24px;
+  border-bottom: none;
+}
+
+.save-task-modal .ant-modal-close {
+  top: 18px;
+  inset-inline-end: 18px;
+  color: #9ca3af;
+}
+
+.save-task-modal .ant-modal-close:hover {
+  color: #374151;
+}
+
+.save-task-modal .ant-modal-body {
+  padding: 0 24px 24px;
+}
+
+.save-task-modal__title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.save-task-modal__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #dcfce7;
+}
+
+.save-task-modal__icon {
+  font-size: 18px;
+  color: #16a34a;
+}
+
+.save-task-modal__title-text {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.save-task-modal .ant-form-item-label > label {
+  color: #374151;
+  font-weight: 500;
+}
+
+.save-task-modal .ant-input,
+.save-task-modal .ant-input-affix-wrapper,
+.save-task-modal .ant-picker,
+.save-task-modal .ant-select-selector {
+  border-radius: 8px !important;
+}
+
+.save-task-modal__footer {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 4px;
+}
+
+.save-task-modal__btn-cancel {
+  flex: 1;
+  height: 44px !important;
+  border-radius: 10px !important;
+  font-weight: 500;
+  border-color: #e5e7eb !important;
+  color: #111827 !important;
+  background: #fff !important;
+}
+
+.save-task-modal__btn-cancel:hover {
+  border-color: #d1d5db !important;
+  color: #111827 !important;
+}
+
+.save-task-modal__btn-save {
+  flex: 1;
+  height: 44px !important;
+  border-radius: 10px !important;
+  font-weight: 500;
+  border: none !important;
+  background: #7c5dfa !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+.save-task-modal__btn-save:hover {
+  background: #6b4dfc !important;
+  color: #fff !important;
+}
+
+.save-task-modal__btn-save:focus {
+  background: #6b4dfc !important;
+  color: #fff !important;
+}
